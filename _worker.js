@@ -69,17 +69,15 @@ function getToken(pathname, pattern) {
  * @returns {Table}
  */
 function parseTable(pattern) {
+    /** @type {Table} */
+    const table = Object.setPrototypeOf({ $Enable: false }, null);
     if (!pattern) {
-        // @ts-ignore
-        return { __proto__: null, $Enable: false };
+        return table;
     }
 
     const regex = /([^:;]+):([^;]+)(?:;|$)/g;
-    /** @type {Table} */
-    const table = { __proto__: null };
     let match;
     for (match of pattern.matchAll(regex)) table[match[1]] = match[2];
-    // @ts-ignore
     table.$Enable = !!match;
     return table;
 }
@@ -97,7 +95,7 @@ function respNginx(request) {
         headers: {
             "content-type": "text/html;charset=utf-8",
             "cache-control": "max-age=86400", // 强制缓存
-            etag: etag, // 协商缓存
+            "etag": etag, // 协商缓存
         },
     });
 }

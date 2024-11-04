@@ -6,9 +6,9 @@ declare global {
         HomePage?: string;
     };
 
-    type Table = Record<string, string | undefined | null>;
+    type Table = Record<string, string | undefined | null> & { $Enable: boolean };
 
     var AuthTable: Table | undefined;
 }
 
-export {};
+export type {};
