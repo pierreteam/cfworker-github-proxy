@@ -12,3 +12,7 @@ keep_vars = true
 [vars]
 HomeMode = ""
 HomePage = ""
+
+[dev]
+ip = "0.0.0.0"
+port = 8787
