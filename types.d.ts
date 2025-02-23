@@ -1,6 +1,6 @@
 declare global {
     type Env = {
-        Token?: string;
+        Password?: string;
         AuthTable?: string;
         HomeMode?: string;
         HomePage?: string;

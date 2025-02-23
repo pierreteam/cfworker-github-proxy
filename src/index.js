@@ -13,14 +13,14 @@ export default {
 
         const pathname = url.pathname.replace(regex, '');
         if (pathname) {
-            let token = url.searchParams.get('token');
-            if (env.Token && env.Token !== token) return new Response('Unauthorized', { status: 401 });
+            const password = url.searchParams.get('password');
+            if (env.Password && env.Password !== password) return new Response('Unauthorized', { status: 401 });
 
             const target = new URL(pathname, BaseURL);
             const targetReq = new Request(target, request); // 直接传递请求，保持缓存控制头，部分下载头等功能
             targetReq.headers.set('host', target.host);
 
-            token = getToken(pathname, env.AuthTable); // 独立 Token 认证
+            const token = getToken(pathname, env.AuthTable); // 独立 Token 认证
             if (token) targetReq.headers.set('Authorization', `Bearer ${token}`);
 
             return await fetch(targetReq); // 直接传递响应，保持缓存控制头，部分下载头等功能

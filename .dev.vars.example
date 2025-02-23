@@ -1,0 +1,2 @@
+Password="<PASSWORD>"
+AuthTable="<USER1>:<TOKEN1>;<USER2>/<REPO1>:<TOKEN2>;<USER2>/<REPO2>:<TOKEN3>"

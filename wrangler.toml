@@ -10,7 +10,5 @@ upload_source_maps = false
 keep_vars = true
 
 [vars]
-Token = ""
-AuthTable = ""
-HomeMode = "default"
+HomeMode = ""
 HomePage = ""
