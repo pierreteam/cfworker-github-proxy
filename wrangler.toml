@@ -1,0 +1,16 @@
+name = "github-proxy"
+compatibility_date = "2025-02-21"
+
+main = "src/index.js"
+
+workers_dev = true
+preview_urls = false
+minify = true
+upload_source_maps = false
+keep_vars = true
+
+[vars]
+Token = ""
+AuthTable = ""
+HomeMode = "default"
+HomePage = ""

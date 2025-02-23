@@ -1,10 +1,13 @@
 {
+    "name": "cfworker-github-proxy",
+    "version": "0.0.0",
     "private": true,
     "scripts": {
-        "dev": "wrangler dev _worker.js"
+        "deploy": "wrangler deploy",
+        "dev": "wrangler dev"
     },
     "devDependencies": {
-        "@cloudflare/workers-types": "^4.20240614.0",
-        "wrangler": "^3.61.0"
+        "@cloudflare/workers-types": "^4.20250214.0",
+        "wrangler": "^3.109.2"
     }
 }

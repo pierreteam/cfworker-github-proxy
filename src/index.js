@@ -1,4 +1,4 @@
-const BaseURL = "https://raw.githubusercontent.com";
+const BaseURL = 'https://raw.githubusercontent.com';
 
 export default {
     /**
@@ -11,18 +11,17 @@ export default {
 
         const regex = /^\/+/;
 
-        const pathname = url.pathname.replace(regex, "");
+        const pathname = url.pathname.replace(regex, '');
         if (pathname) {
-            let token = url.searchParams.get("token");
-            if (env.Token && env.Token !== token)
-                return new Response("Unauthorized", { status: 401 });
+            let token = url.searchParams.get('token');
+            if (env.Token && env.Token !== token) return new Response('Unauthorized', { status: 401 });
 
             const target = new URL(pathname, BaseURL);
             const targetReq = new Request(target, request); // 直接传递请求，保持缓存控制头，部分下载头等功能
-            targetReq.headers.set("host", target.host);
+            targetReq.headers.set('host', target.host);
 
             token = getToken(pathname, env.AuthTable); // 独立 Token 认证
-            if (token) targetReq.headers.set("authorization", `token ${token}`);
+            if (token) targetReq.headers.set('Authorization', `Bearer ${token}`);
 
             return await fetch(targetReq); // 直接传递响应，保持缓存控制头，部分下载头等功能
         }
@@ -31,13 +30,13 @@ export default {
         if (env.HomePage) {
             try {
                 switch (env.HomeMode) {
-                    case "redirect": // 重定向
+                    case 'redirect': // 重定向
                         return Response.redirect(env.HomePage, 302);
-                    case "rewrite": // 重写
+                    case 'rewrite': // 重写
                         return await fetch(env.HomePage);
                 }
             } catch {
-                return new Response("Internal Server Error", { status: 500 });
+                return new Response('Internal Server Error', { status: 500 });
             }
         }
 
@@ -82,20 +81,19 @@ function parseTable(pattern) {
     return table;
 }
 
-const etag = btoa("HelloNginx");
+const etag = btoa('HelloNginx');
 
 /**
  * @param {Request} request
  * @returns
  */
 function respNginx(request) {
-    if (request.headers.get("if-none-match") === etag)
-        return new Response(null, { status: 304 });
+    if (request.headers.get('if-none-match') === etag) return new Response(null, { status: 304 });
     return new Response(Welcome, {
         headers: {
-            "content-type": "text/html;charset=utf-8",
-            "cache-control": "max-age=86400", // 强制缓存
-            "etag": etag, // 协商缓存
+            'content-type': 'text/html;charset=utf-8',
+            'cache-control': 'max-age=86400', // 强制缓存
+            etag: etag, // 协商缓存
         },
     });
 }
